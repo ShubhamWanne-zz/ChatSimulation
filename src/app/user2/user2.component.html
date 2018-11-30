@@ -1,0 +1,22 @@
+<div class="container">
+  <p class="lead">User 2</p>
+    <div class="row" style="text-align: left">
+      <div class="col md-8">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="message" class="form-control-lg" required>
+        </div>
+      </div>
+      <div class="col md-4">
+        <button href="#" class="btn btn-primary btn-lg">
+            <span class="glyphicon glyphicon-asterisk"></span> Send
+          </button>
+      </div>
+    </div>
+</div>
+<div class="container" *ngIf="true">
+  <ul class="list-group" style="text-align: left">
+    <li class="list-group-item border-top-0" *ngFor="let message of messageList">
+        {{message}}
+    </li>
+  </ul>
+</div>
