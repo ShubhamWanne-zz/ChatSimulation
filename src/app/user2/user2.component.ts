@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription} from 'rxjs';
-import {MessageServiceService} from '../message-service.service'
+import { MessageServiceService} from '../message-service.service'
+import { DateUtil} from "../utils/Date"
+
 @Component({
   selector: 'app-user2',
   templateUrl: './user2.component.html',
@@ -9,13 +11,14 @@ import {MessageServiceService} from '../message-service.service'
 export class User2Component implements OnInit {
   subscription = new Subscription();
   message:string;
-  messageList: string[];
+  messageList= new Array<any>();
+  date= new DateUtil();
   constructor(private messageService: MessageServiceService) {
       this.subscription = this.messageService.getMessage().subscribe(
         message => {
-          console.log(message)
-          if(message.to === "user2")
-            this.messageList.push(message.data);
+          console.log(message.messageObj);
+          if(message.messageObj.to === "user2")
+            this.messageList.push(message.messageObj);
         }
       )
   }
@@ -23,11 +26,17 @@ export class User2Component implements OnInit {
   ngOnInit() {
   }
   sendMessage(){
-      if(this.message != ""){
-      this.messageService.sendMessage({
+    if(this.message!=""){
+      let messageObj = {
         data: this.message,
-        to: "user1"
+        from: "user2",
+        to: "user1",
+        date: this.date.newDate()
+      }
+      this.messageService.sendMessage({
+        messageObj
       });
+      this.messageList.push(messageObj);
     }
   }
   ngOnDestroy(){

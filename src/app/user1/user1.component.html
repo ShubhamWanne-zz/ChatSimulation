@@ -3,7 +3,7 @@
     <div class="row" style="text-align: left">
       <div class="col md-8">
         <div class="form-group">
-          <input type="text" [(ngModel)]="message" class="form-control-lg" required>
+          <input type="text" [name]="message" [(ngModel)]="message" class="form-control-lg" required>
         </div>
       </div>
       <div class="col md-4">
@@ -16,7 +16,16 @@
 <div class="container" *ngIf="true">
   <ul class="list-group" style="text-align: left">
     <li class="list-group-item border-top-0" *ngFor="let message of messageList">
-        {{message}}
+      <div style="text-align: right" *ngIf="message.from == 'user1'">
+        <p style="color:blue">
+          {{message.data}}
+          <code>{{message.date}}</code>
+        </p>
+      </div>
+      <p *ngIf="message.from == 'user2'" style="color:orange">
+        {{message.data}}
+        <code>{{message.date}}</code>
+      </p>
     </li>
   </ul>
 </div>
